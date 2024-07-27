@@ -15,33 +15,41 @@ const postSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'please provide a post price'],
     },
-    images: {
-      type: [],
-    },
-    address: {
+    image: {
       type: String,
-      required: [true, 'please provide a post address '],
+      required: [true, 'please provide a post image'],
+    },
+    country: {
+      type: String,
+      required: [true, 'please provide a post country '],
+    },
+    state: {
+      type: String,
+      required: [true, 'please provide a post state '],
     },
     city: {
       type: String,
-      required: [true, 'please provide a post city or location '],
+      required: [true, 'please provide a post city '],
     },
-    bedrooms: {
-      type: Number,
-      required: [true, 'please provide a post bedroom number'],
-    },
-    bathrooms: {
+    location: {
       type: String,
-      required: [true, 'please provide a post bathroom number'],
+      required: [true, 'please provide a post location'],
     },
-    latitude: {
-      type: Number,
-      required: [true, 'please provide a post latitude'],
+    location: {
+      type: String,
+      required: [true, 'please provide a post location'],
     },
-    longitude: {
-      type: Number,
-      required: [true, 'please provide a post longitude'],
+    coodinates: {
+      latitude: {
+        type: Number,
+        required: [true, 'please provide a post latitude'],
+      },
+      longitude: {
+        type: Number,
+        required: [true, 'please provide a post longitude'],
+      },
     },
+
     type: {
       type: String,
       enum: ['buy', 'rent'],
