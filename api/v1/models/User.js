@@ -56,4 +56,4 @@ UserSchema.methods.hashPassword = async function () {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(this.password, salt);
 };
-export default mongoose.model('users', UserSchema);
+export default mongoose.model?.users || mongoose.model('users', UserSchema);

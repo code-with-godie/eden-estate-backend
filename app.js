@@ -8,7 +8,6 @@ import connectDB from './db/connect.js';
 import errorHandlerMiddleware from './middlewares/error-handler.js';
 import usersRoutes from './api/v1/routes/userRoutes.js';
 import postRoutes from './api/v1/routes/postRoutes.js';
-import messageRoutes from './api/v1/routes/messageRoutes.js';
 import roomRoutes from './api/v1/routes/roomRoutes.js';
 // import './socket/server.js';
 //app config
@@ -28,7 +27,6 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/eden_estate/users', usersRoutes);
 app.use('/api/v1/eden_estate/posts', postRoutes);
-app.use('/api/v1/eden_estate/messeges', messageRoutes);
 app.use('/api/v1/eden_estate/rooms', roomRoutes);
 
 //not found route

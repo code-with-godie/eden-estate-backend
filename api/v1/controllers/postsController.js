@@ -26,7 +26,7 @@ export const createPost = async (req, res, next) => {
 export const getProfilePosts = async (req, res, next) => {
   try {
     const {
-      user: { userID },
+      params: { id: userID },
     } = req;
     const posts = await Posts.find({ user: userID }).populate({
       path: 'user',
@@ -42,7 +42,7 @@ export const getProfilePosts = async (req, res, next) => {
 export const getSavedPosts = async (req, res, next) => {
   try {
     const {
-      user: { userID },
+      params: { id: userID },
     } = req;
     const user = await Users.findById(userID);
     if (!user) throw new NotFoundError('no user found with the provided id');
@@ -80,7 +80,7 @@ export const search = async (req, res, next) => {
     let { location, type, property, minPrice, maxPrice } = req.query;
     let querryObj = {};
     if (location && location !== 'null') {
-      querryObj.city = location;
+      querryObj.state = location;
     }
     if (type && type !== 'null') {
       querryObj.type = type;
@@ -88,14 +88,14 @@ export const search = async (req, res, next) => {
     if (property && property !== 'null') {
       querryObj.property = property;
     }
-    minPrice = minPrice === 'null' ? null : Number(minPrice);
-    maxPrice = maxPrice === 'null' ? null : Number(maxPrice);
-    if (minPrice && maxPrice) {
-      querryObj = {
-        ...querryObj,
-        $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
-      };
-    }
+    // minPrice = minPrice === 'null' ? null : Number(minPrice);
+    // maxPrice = maxPrice === 'null' ? null : Number(maxPrice);
+    // if (minPrice && maxPrice) {
+    //   querryObj = {
+    //     ...querryObj,
+    //     $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
+    //   };
+    // }
     const posts = await Posts.find(querryObj);
     return res.status(StatusCodes.OK).json({ success: true, posts });
   } catch (error) {

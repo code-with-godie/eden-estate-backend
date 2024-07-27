@@ -6,6 +6,7 @@ import {
   getAllUsers,
   bookmark,
   updateUser,
+  getSingleUser,
 } from '../controllers/usersController.js';
 import authorize from '../../../middlewares/authentication.js';
 
@@ -16,4 +17,5 @@ Router.route('/register').post(createAccount);
 Router.route('/auth').post(auth);
 Router.route('/update-details').patch(authorize, updateUser);
 Router.route('/bookmark/:id').patch(authorize, bookmark);
+Router.route('/single/:id').get(getSingleUser);
 export default Router;

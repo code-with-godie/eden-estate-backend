@@ -19,6 +19,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: [true, 'please provide a post image'],
     },
+    rooms: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'rooms',
+    },
     country: {
       type: String,
       required: [true, 'please provide a post country '],
@@ -91,4 +95,4 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('posts', postSchema);
+export default mongoose.model?.posts || mongoose.model('posts', postSchema);
