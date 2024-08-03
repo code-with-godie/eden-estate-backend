@@ -35,14 +35,6 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: [true, 'please provide a post city '],
     },
-    location: {
-      type: String,
-      required: [true, 'please provide a post location'],
-    },
-    location: {
-      type: String,
-      required: [true, 'please provide a post location'],
-    },
     coodinates: {
       latitude: {
         type: Number,

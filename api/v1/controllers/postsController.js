@@ -80,7 +80,11 @@ export const search = async (req, res, next) => {
     let { location, type, property, minPrice, maxPrice } = req.query;
     let querryObj = {};
     if (location && location !== 'null') {
-      querryObj.state = location;
+      querryObj.$or = [
+        { country: { $regex: new RegExp(location, 'i') } },
+        { state: { $regex: new RegExp(location, 'i') } },
+        { city: { $regex: new RegExp(location, 'i') } },
+      ];
     }
     if (type && type !== 'null') {
       querryObj.type = type;
@@ -96,7 +100,8 @@ export const search = async (req, res, next) => {
     //     $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
     //   };
     // }
-    const posts = await Posts.find(querryObj);
+    const posts = await Posts.find({ ...querryObj });
+    console.log(posts, querryObj);
     return res.status(StatusCodes.OK).json({ success: true, posts });
   } catch (error) {
     next(error);
@@ -113,7 +118,7 @@ export const updatePost = async (req, res, next) => {
     if (!post) {
       throw new BadRequestError('no post with the provided id!');
     }
-    if (post.userID !== userID) {
+    if (post.user?.toString() !== userID) {
       throw new BadRequestError('you can only update your own posts!');
     }
     post = await Posts.findByIdAndUpdate(

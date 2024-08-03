@@ -7,6 +7,10 @@ const roomSchema = new mongoose.Schema(
       ref: 'users',
       required: [true, 'please provide a post user'],
     },
+    price: {
+      type: Number,
+      required: [true, 'please provide a post price'],
+    },
     kingSize: {
       type: Number,
       default: 0,
@@ -16,48 +20,63 @@ const roomSchema = new mongoose.Schema(
       default: 0,
     },
     breakFast: {
-      offer: {
-        type: Boolean,
-        default: false,
-      },
-      price: {
-        type: Number,
-      },
-      bathrooms: {
-        type: Number,
-        required: [true, 'please provide number of bathrooms'],
-      },
-      guests: {
-        type: Number,
-        required: [
-          true,
-          'please provide number of guest that can fit into this room',
-        ],
-      },
-      wifi: {
-        type: Boolean,
-        default: false,
-      },
-      airConditional: {
-        type: Boolean,
-        default: false,
-      },
-      laundaryServices: {
-        type: Boolean,
-        default: false,
-      },
-      tv: {
-        type: Boolean,
-        default: false,
-      },
-      booked: {
-        type: Boolean,
-        default: false,
-      },
-      image: {
-        type: String,
-        required: [true, 'please provide room image'],
-      },
+      type: Number,
+    },
+
+    bathrooms: {
+      type: Number,
+      required: [true, 'please provide number of bathrooms'],
+    },
+    guests: {
+      type: Number,
+      required: [
+        true,
+        'please provide number of guest that can fit into this room',
+      ],
+    },
+    wifi: {
+      type: Boolean,
+      default: false,
+    },
+    conditional: {
+      type: Boolean,
+      default: false,
+    },
+    roomService: {
+      type: Boolean,
+      default: false,
+    },
+    tv: {
+      type: Boolean,
+      default: false,
+    },
+    balcony: {
+      type: Boolean,
+      default: false,
+    },
+    mountain: {
+      type: Boolean,
+      default: false,
+    },
+    forest: {
+      type: Boolean,
+      default: false,
+    },
+    soundProve: {
+      type: Boolean,
+      default: false,
+    },
+    ocean: {
+      type: Boolean,
+      default: false,
+    },
+    booked: {
+      type: Boolean,
+      default: false,
+    },
+    image: {
+      type: String,
+      required: [true, 'please provide room image'],
     },
   },
   { timestamps: true }
