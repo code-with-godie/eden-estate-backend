@@ -1,7 +1,4 @@
 import { StatusCodes } from 'http-status-codes';
-import NotFoundError from '../../../errors/not-found.js';
-import Users from '../models/User.js';
-import BadRequestError from '../../../errors/bad-request.js';
 import Room from '../models/Room.js';
 
 export const getEstateRooms = async (req, res, next) => {
@@ -46,6 +43,20 @@ export const createRoom = async (req, res, next) => {
 };
 export const deleteRoom = async (req, res, next) => {
   try {
+  } catch (error) {
+    next(error);
+  }
+};
+export const getSingleRoom = async (req, res, next) => {
+  try {
+    const {
+      params: { id: roomID },
+    } = req;
+    const room = await Room.findById(roomID);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      room,
+    });
   } catch (error) {
     next(error);
   }

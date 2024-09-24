@@ -24,12 +24,24 @@ const postSchema = new mongoose.Schema(
       ref: 'rooms',
     },
     country: {
-      type: String,
-      required: [true, 'please provide a post country '],
+      ISOCode: {
+        type: String,
+        required: [true, 'please provide a post country isocode '],
+      },
+      name: {
+        type: String,
+        required: [true, 'please provide a post country name '],
+      },
     },
     state: {
-      type: String,
-      required: [true, 'please provide a post state '],
+      ISOCode: {
+        type: String,
+        required: [true, 'please provide a post state isocode '],
+      },
+      name: {
+        type: String,
+        required: [true, 'please provide a post state name '],
+      },
     },
     city: {
       type: String,

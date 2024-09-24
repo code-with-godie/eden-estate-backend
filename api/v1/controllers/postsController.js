@@ -101,7 +101,6 @@ export const search = async (req, res, next) => {
     //   };
     // }
     const posts = await Posts.find({ ...querryObj });
-    console.log(posts, querryObj);
     return res.status(StatusCodes.OK).json({ success: true, posts });
   } catch (error) {
     next(error);
