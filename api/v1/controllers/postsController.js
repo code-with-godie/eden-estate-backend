@@ -100,7 +100,10 @@ export const search = async (req, res, next) => {
     //     $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
     //   };
     // }
-    const posts = await Posts.find({ ...querryObj });
+    const posts = await Posts.find({ ...querryObj }).populate({
+      path: 'user',
+      select: 'username',
+    });
     return res.status(StatusCodes.OK).json({ success: true, posts });
   } catch (error) {
     next(error);
