@@ -9,6 +9,8 @@ import errorHandlerMiddleware from './middlewares/error-handler.js';
 import usersRoutes from './api/v1/routes/userRoutes.js';
 import postRoutes from './api/v1/routes/postRoutes.js';
 import roomRoutes from './api/v1/routes/roomRoutes.js';
+import reserveRoutes from './api/v1/routes/reserveRoutes.js';
+import paymentRoutes from './api/v1/routes/paymentRoute.js';
 // import './socket/server.js';
 //app config
 const app = express();
@@ -28,6 +30,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/eden_estate/users', usersRoutes);
 app.use('/api/v1/eden_estate/posts', postRoutes);
 app.use('/api/v1/eden_estate/rooms', roomRoutes);
+app.use('/api/v1/eden_estate/reserve', reserveRoutes);
+app.use('/api/v1/eden_estate/pay', paymentRoutes);
 
 //not found route
 app.use(notFound);

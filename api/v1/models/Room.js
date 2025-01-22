@@ -4,8 +4,8 @@ const roomSchema = new mongoose.Schema(
   {
     estateID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
-      required: [true, 'please provide a post user'],
+      ref: 'posts',
+      required: [true, 'please provide an estate ID'],
     },
     price: {
       type: Number,

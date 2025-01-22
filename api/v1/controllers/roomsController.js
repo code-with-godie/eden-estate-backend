@@ -14,18 +14,32 @@ export const getEstateRooms = async (req, res, next) => {
     next(error);
   }
 };
+
 export const getRandomRooms = async (req, res, next) => {
   try {
     const rooms = await Room.aggregate([
       {
         $sample: { size: 200 },
       },
+      {
+        $lookup: {
+          from: 'posts', // The collection name for the Estate model
+          localField: 'estateID',
+          foreignField: '_id',
+          as: 'estate',
+        },
+      },
+      {
+        $unwind: '$estate', // This will flatten the estate array
+      },
     ]);
+
     return res.status(StatusCodes.OK).json({ success: true, rooms });
   } catch (error) {
     next(error);
   }
 };
+
 export const createRoom = async (req, res, next) => {
   try {
     // const {
@@ -52,7 +66,19 @@ export const getSingleRoom = async (req, res, next) => {
     const {
       params: { id: roomID },
     } = req;
-    const room = await Room.findById(roomID);
+
+    // Populate the estateID and add the estate attribute
+    const room = await Room.findById(roomID).populate({
+      path: 'estateID',
+    });
+
+    if (!room) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: 'Room not found',
+      });
+    }
+
     return res.status(StatusCodes.OK).json({
       success: true,
       room,

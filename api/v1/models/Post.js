@@ -79,6 +79,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       default: 'bet are allowed',
     },
+    breakfast: {
+      offered: { type: Boolean, default: false },
+      price: { type: Number, default: 0 },
+    },
     income: {
       type: String,
       default: '',
