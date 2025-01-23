@@ -6,6 +6,7 @@ export const getRoomReservedDates = async (req, res, next) => {
     const {
       params: { id: roomID },
     } = req;
+
     const reserves = await Reserve.find({ roomID }, { dates: 1 });
     return res.status(StatusCodes.OK).json({ success: true, reserves });
   } catch (error) {

@@ -79,6 +79,7 @@ export const search = async (req, res, next) => {
   try {
     let { location, type, property, minPrice, maxPrice } = req.query;
     let querryObj = {};
+
     if (location && location !== 'null') {
       querryObj.$or = [
         { country: { $regex: new RegExp(location, 'i') } },
@@ -86,24 +87,33 @@ export const search = async (req, res, next) => {
         { city: { $regex: new RegExp(location, 'i') } },
       ];
     }
+
     if (type && type !== 'null') {
       querryObj.type = type;
     }
+
     if (property && property !== 'null') {
       querryObj.property = property;
     }
-    // minPrice = minPrice === 'null' ? null : Number(minPrice);
-    // maxPrice = maxPrice === 'null' ? null : Number(maxPrice);
-    // if (minPrice && maxPrice) {
-    //   querryObj = {
-    //     ...querryObj,
-    //     $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
-    //   };
-    // }
+
+    minPrice = minPrice === 'null' ? null : Number(minPrice);
+    maxPrice = maxPrice === 'null' ? null : Number(maxPrice);
+
+    if (minPrice !== null || maxPrice !== null) {
+      querryObj.price = {};
+      if (minPrice !== null) {
+        querryObj.price.$gte = minPrice;
+      }
+      if (maxPrice !== null) {
+        querryObj.price.$lte = maxPrice;
+      }
+    }
+
     const posts = await Posts.find({ ...querryObj }).populate({
       path: 'user',
       select: 'username',
     });
+
     return res.status(StatusCodes.OK).json({ success: true, posts });
   } catch (error) {
     next(error);
