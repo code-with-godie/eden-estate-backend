@@ -32,7 +32,7 @@ export const getRandomRooms = async (req, res, next) => {
       {
         $unwind: '$estate', // This will flatten the estate array
       },
-    ]);
+    ]).allowDiskUse(true); // Add this line to allow external sorting
 
     return res.status(StatusCodes.OK).json({ success: true, rooms });
   } catch (error) {
