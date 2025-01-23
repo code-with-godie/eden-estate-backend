@@ -22,7 +22,7 @@ export const getRandomRooms = async (req, res, next) => {
       .populate({
         path: 'estateID',
       })
-      .limit(200)
+      .limit(5)
       .sort({ _id: -1 }); // Sort by _id in descending order to get the latest rooms
 
     // Rename the populated field from estateID to estate
