@@ -17,26 +17,23 @@ export const getEstateRooms = async (req, res, next) => {
 
 export const getRandomRooms = async (req, res, next) => {
   try {
-    // Use the find method to get random rooms
-    const rooms = await Room.find({})
-      .populate({
-        path: 'estateID',
-      })
-      .limit(5)
-      .sort({ _id: -1 }); // Sort by _id in descending order to get the latest rooms
-
-    // Rename the populated field from estateID to estate
-    const formattedRooms = rooms.map(room => {
-      return {
-        ...room._doc,
-        estate: room.estateID,
-        estateID: undefined, // Remove the original estateID field
-      };
-    });
-
-    return res
-      .status(StatusCodes.OK)
-      .json({ success: true, rooms: formattedRooms });
+    const rooms = await Room.aggregate([
+      {
+        $sample: { size: 200 },
+      },
+      {
+        $lookup: {
+          from: 'posts', // The collection name for the Estate model
+          localField: 'estateID',
+          foreignField: '_id',
+          as: 'estate',
+        },
+      },
+      {
+        $unwind: '$estate', // This will flatten the estate array
+      },
+    ]);
+    return res.status(StatusCodes.OK).json({ success: true, rooms });
   } catch (error) {
     console.error('Error fetching rooms:', error);
     next(error);

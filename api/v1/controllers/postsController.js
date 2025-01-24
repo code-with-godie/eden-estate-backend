@@ -77,7 +77,7 @@ export const getSinglePost = async (req, res, next) => {
 };
 export const search = async (req, res, next) => {
   try {
-    let { location, type, property, minPrice, maxPrice } = req.query;
+    let { location, type, property, pet, utilities } = req.query;
     let querryObj = {};
 
     if (location && location !== 'null') {
@@ -95,18 +95,11 @@ export const search = async (req, res, next) => {
     if (property && property !== 'null') {
       querryObj.property = property;
     }
-
-    minPrice = minPrice === 'null' ? null : Number(minPrice);
-    maxPrice = maxPrice === 'null' ? null : Number(maxPrice);
-
-    if (minPrice !== null || maxPrice !== null) {
-      querryObj.price = {};
-      if (minPrice !== null) {
-        querryObj.price.$gte = minPrice;
-      }
-      if (maxPrice !== null) {
-        querryObj.price.$lte = maxPrice;
-      }
+    if (utilities && utilities !== 'null') {
+      querryObj.utilities = utilities;
+    }
+    if (pet && pet !== 'null') {
+      querryObj.pet = pet;
     }
 
     const posts = await Posts.find({ ...querryObj }).populate({

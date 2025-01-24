@@ -17,7 +17,17 @@ const postSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, 'please provide a post image'],
+      default: '',
+    },
+    url: {
+      secure_url: {
+        type: String,
+        required: [true, 'please provide room secure url'],
+      },
+      public_id: {
+        type: String,
+        required: [true, 'please provide room public id'],
+      },
     },
     rooms: {
       type: mongoose.Schema.Types.ObjectId,
@@ -77,7 +87,7 @@ const postSchema = new mongoose.Schema(
     },
     pet: {
       type: String,
-      default: 'bet are allowed',
+      default: 'pet are allowed',
     },
     breakfast: {
       offered: { type: Boolean, default: false },
