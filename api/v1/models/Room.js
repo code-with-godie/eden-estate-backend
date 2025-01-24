@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const roomSchema = new mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: [true, 'please provide room ID'],
+    },
     estateID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'posts',
@@ -19,10 +23,6 @@ const roomSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    breakFast: {
-      type: Number,
-    },
-
     bathrooms: {
       type: Number,
       required: [true, 'please provide number of bathrooms'],
@@ -76,7 +76,17 @@ const roomSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, 'please provide room image'],
+      default: '',
+    },
+    url: {
+      secure_url: {
+        type: String,
+        required: [true, 'please provide room secure url'],
+      },
+      public_id: {
+        type: String,
+        required: [true, 'please provide room public id'],
+      },
     },
   },
   { timestamps: true }
